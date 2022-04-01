@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+}
+
+group 'com.thebrokenrail'
+version '1.0.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation name: 'M'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'Runner'
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
